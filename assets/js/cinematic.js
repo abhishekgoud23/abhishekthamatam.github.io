@@ -138,11 +138,10 @@
 			toggle.setAttribute("aria-expanded", open);
 			body.style.overflow = open ? "hidden" : "";
 		});
-		links.forEach(function (a) {
-			a.addEventListener("click", function () {
-				nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); body.style.overflow = "";
-			});
-		});
+		function closeMenu() { nav.classList.remove("is-open"); toggle.setAttribute("aria-expanded", "false"); body.style.overflow = ""; }
+		links.forEach(function (a) { a.addEventListener("click", closeMenu); });
+		doc.addEventListener("keydown", function (e) { if (e.key === "Escape" && nav.classList.contains("is-open")) { closeMenu(); toggle.focus(); } });
+		window.addEventListener("resize", function () { if (window.innerWidth > 960) closeMenu(); });
 	}
 
 	/* ---------- Project filter ---------- */
